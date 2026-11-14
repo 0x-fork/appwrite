@@ -1,8 +1,5 @@
 # Utopia User Agent
 
-> [!IMPORTANT]
-> This repository is a read-only mirror of [`crates/utopia/user-agent`](https://github.com/appwrite/appwrite/tree/main/crates/utopia/user-agent) in [appwrite/appwrite](https://github.com/appwrite/appwrite). Development happens there — please open issues and pull requests against appwrite/appwrite.
-
 [![Discord](https://img.shields.io/discord/564160730845151244?label=discord)](https://discord.gg/GSeTUeA)
 
 User-agent parsing: operating system, client, device and bot.
@@ -13,7 +10,7 @@ This library is maintained by the [Appwrite team](https://appwrite.io).
 
 ```toml
 [dependencies]
-utopia-user-agent = { git = "https://github.com/utopia-rs/user-agent" }
+utopia-user-agent = { git = "https://github.com/appwrite/appwrite" }
 ```
 
 A user-agent string tells a server what made a request: the browser, its operating system, the device it runs on, or the bot or HTTP library behind it. This library reads those facts from the `User-Agent` header without data files or network calls. Each category is detected only when you ask for it, and unknown fields are `None`, so any header is safe to parse. This guide covers the common tasks.
@@ -177,27 +174,7 @@ cargo fmt --all --check
 
 ### Compare with PHP
 
-Replay the results PHP recorded for every case against Rust, without PHP:
-
-```bash
-COMPAT_LIB=user-agent cargo test -p compat
-```
-
-Run every case on both runtimes, fuzz both with generated inputs, then run the whole conversion check. These need the dev stack (`docker compose up -d`):
-
-```bash
-bin/compat run user-agent
-bin/compat fuzz user-agent
-bin/compat check user-agent
-```
-
-### Benchmark
-
-```bash
-bin/compat bench user-agent
-```
-
-This times every benchmark on PHP and on a release build of Rust, both in containers on the dev stack. It fails if Rust is slower. Add `--write` to record the run in [`tests/compat/user-agent/bench.json`](https://github.com/appwrite/appwrite/blob/main/tests/compat/user-agent/bench.json). Run it on a quiet machine, one library at a time.
+The utopia PHP extension serves this crate as `Utopia\UserAgent\UserAgent`. Its parity corpus, `crates/extension/tests/user-agent.php`, must print the same on PHP's class and on the extension; `crates/extension/tests/run.sh` checks it in the development image, and `crates/extension/bench/user-agent.php` times both.
 
 ## License
 

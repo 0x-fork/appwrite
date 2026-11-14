@@ -23,7 +23,7 @@ type Test = fn(&[u8]) -> bool;
 type NativeCapture = Box<dyn Fn(&[u8]) -> Option<&[u8]>>;
 type NativeTest = Box<dyn Fn(&[u8]) -> bool>;
 
-/// Every string literal of the compat suite's user-agent spec (tests/spec.json), plus the
+/// Every string literal of `tests/spec.json`, plus the
 /// tokens the patterns look for.
 fn corpus() -> Vec<Vec<u8>> {
     let spec = include_str!("../../tests/spec.json").as_bytes();
