@@ -31,6 +31,12 @@ _APP_EXTENSION_LIBRARIES=dsn,locale,user-agent   # Utopia\DSN\DSN, Utopia\Locale
 The extension reads it once, when PHP loads the module, so changing it takes a restart and no
 deploy. Each library is canaried on Cloud this way before it becomes the default.
 
+CI runs `crates/extension/tests/run.sh` in the development image. It finds the libraries from the
+`enabled()` calls in `src/lib.rs` and requires a parity corpus at `tests/<name>.php` for each. For
+every library it runs `packages/<name>/tests` on the extension and diffs the corpus on both
+implementations, first one library at a time, then with all of them on. A new library needs only
+its `enabled()` call, its corpus and its package tests; there is no CI step to add.
+
 ## Utopia\DSN\DSN
 
 Over `crates/utopia/dsn` (`_APP_EXTENSION_LIBRARIES=dsn`). It declares the PHP class's protected
